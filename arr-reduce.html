@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reduce</title>
+</head>
+<body>
+	<script>
+		
+		var arr = [1,2,3,4];
+		var sum = arr.reduce(function(previous, current, index, array) {
+			// console.log(previous);
+			return previous + current;
+		});
+		// console.log(sum);
+
+
+		function compose(func) {
+			var last = func[func.length -1];
+			var rest = func.slice(0, -1);
+			return function(arg) {
+				return rest.reduceRight(function(previous, current, index, arr) {
+					return current(previous);
+				}, last(arg));
+			}
+		}
+
+		// middlewares
+		var f = function(a) {
+			return a + 1;
+		}
+
+		var g = function(a) {
+			return a + 2;
+		}
+
+		var v = function(a) {
+			return a + 3;
+		}
+
+
+		console.log(compose([f, g, v])(1))
+	</script>
+</body>
+</html>

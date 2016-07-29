@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">INS</button>
+	<script src="./src/index.js"></script>
+	<script>
+		var test = State.createStore(function(state, act) {
+			if (typeof state === 'undefined') return 1;
+			switch(act.type) {
+				case 'INS': 
+					state += 1;
+					break;
+				case 'DES': 
+					state -= 1;
+					break;
+			}
+			return state;
+		}, 5);
+		test.subscribe(function() {
+			console.log(test.getState());
+		});
+
+		document.getElementById('btn').addEventListener('click', function(){
+			test.dispatch({type: 'INS'});
+		}, false);
+	</script>
+</body>
+</html>
